@@ -4,7 +4,10 @@ const port = 4000;
 
 app.use(express.json());
 
-app.get("/products", (req, res) => {
+app.get("/products",(req,res,next)=>{
+    console.log(req.method, req.url);
+    next();
+}, (req, res) => {
     res.send("Here is the list of all products.");
 });
 
