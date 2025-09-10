@@ -1,31 +1,13 @@
 const express = require('express');
 const app = express();
-const port = 4000;
+const port = 3000;
+const ordersRouter = require('./routes/orders');
+const usersRouter = require('./routes/users');
 
 app.use(express.json());
 
-app.get("/products",(req,res,next)=>{
-    console.log(req.method, req.url);
-    next();
-}, (req, res) => {
-    res.send("Here is the list of all products.");
-});
-
-app.post("/products", (req, res) => {
-    res.send("A new product has been added.");
-});
-
-app.get("/categories", (req, res) => {
-    res.send("Here is the list of all categories.");
-});
-
-app.post("/categories", (req, res) => {
-    res.send("A new category has been created.");
-});
-
-app.get("/*splat",(req, res) => {
-    res.status(404).type('html').send("<h1>404 - Page Not Found</h1>");
-});
+app.use('/', ordersRouter);
+app.use('/', usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
